@@ -24,7 +24,13 @@
             function start()
             {
                 var transferEthAddress = "address";
-                var TransferEth = new web3js.eth.Contract();
+                var transferEth = new web3js.eth.Contract(transferEthABI, transferEthAddress);
+
+            }
+
+            function sendEth()
+            {
+                return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
             }
 
             window.addEventListener('load', function() {
