@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Transfer Ethereum</title>
+        <script language="javascript" type="text/javascript" src="./web3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="transferEth_abi.js"></script>
+        <script language="javascript" type="text/javascript" src="Ownable_abi.js"></script>
+
+
+
+        <style>
+                .button {
+                  background-color: #4CAF50;
+                  border: none;
+                  color: white;
+                  padding: 15px 32px;
+                  text-align: center;
+                  font-size: 16px;
+                }
+                </style>
+    </head>
+    <body>
+        <script>
+            function start()
+            {
+                var transferEthAddress = "address";
+                var TransferEth = new web3js.eth.Contract();
+            }
+
+            window.addEventListener('load', function() {
+                if (typeof web3 !== 'undefined') {
+                    web3js = new Web3(web3.currentProvider);
+                } else {
+                    
+                }
+
+                start()
+
+            })
+        </script>
+        <h2 style= "color:rgb(94,17,7); text-align: center">
+            Click on "+" button to send Ethereum to the contract Owner.
+        </h2>
+        <div style="text-align:center;">
+            <button class="button">+</button>
+        </div>
+        
+    </body>
+</html>
