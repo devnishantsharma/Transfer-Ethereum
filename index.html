@@ -2,9 +2,10 @@
 <html lang="en">
     <head>
         <title>Transfer Ethereum</title>
-        <script language="javascript" type="text/javascript" src="./web3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="web3.min.js"></script>
         <script language="javascript" type="text/javascript" src="transferEth_abi.js"></script>
         <script language="javascript" type="text/javascript" src="Ownable_abi.js"></script>
+        <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 
@@ -20,36 +21,49 @@
                 </style>
     </head>
     <body>
-        <script>
-            function start()
-            {
-                var transferEthAddress = "address";
-                var transferEth = new web3js.eth.Contract(transferEthABI, transferEthAddress);
-
-            }
-
-            function sendEth()
-            {
-                return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
-            }
-
-            window.addEventListener('load', function() {
-                if (typeof web3 !== 'undefined') {
-                    web3js = new Web3(web3.currentProvider);
-                } else {
-                    
-                }
-
-                start()
-
-            })
-        </script>
+        
         <h2 style= "color:rgb(94,17,7); text-align: center">
             Click on "+" button to send Ethereum to the contract Owner.
         </h2>
         <div style="text-align:center;">
-            <button class="button">+</button>
+            <button id= "btn" class="button" onclick="sendEth">+</button>
         </div>
-        
+
+        <h3 id="msg"></h3>
+        <script>
+                //document.getElementById("btn").addEventListener("click", sendEth);
+                
+                /*function start()
+                {
+                    var transferEthAddress = "0x038a17768c21c8cff795E00C9526f3b253fe44d3";
+                    var transferEth = new web3js.eth.Contract(transferEthABI, transferEthAddress);
+    
+                }*/
+    
+                /*function sendEth()
+                {
+                    return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
+                }*/
+    
+                /*window.addEventListener('load', function() {
+                    //Web3 = require('web3');
+                    if (typeof web3 !== 'undefined') {
+                        web3js = new Web3(web3.currentProvider);
+                    } else {
+                        console.log("Error");
+                    }
+    
+                    start()
+    
+                })*/
+                if (typeof web3 !== 'undefined') {
+                web3 = new Web3(web3.currentProvider);
+                } else {
+                // set the provider you want from Web3.providers
+                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+                //web3 = new Web3(web3.currentProvider);
+                }
+                web3.eth.defaultAccount = web3.eth.accounts[0];
+            </script>
     </body>
 </html>
