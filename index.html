@@ -32,24 +32,10 @@
         <h3 id="msg"></h3>
         <script>
                 var transferEth;
-                
-    
-                window.addEventListener('load', function() {
-                
-                    Web3 = require('web3');
-                    if (typeof Web3 !== 'undefined') {
-                        web3js = new Web3(Web3.currentProvider);
-                    } else {
-                        console.log("Error");
-                    }
-    
-                start()
-    
-                })
                 function start()
                 {
-                    var transferEthAddress = "0x038a17768c21c8cff795E00C9526f3b253fe44d3";
-                    transferEth = new web3js.eth.contract(transferEthABI, transferEthAddress);
+                    var transferEthAddress = "0xeD2322f52423b249b376cb54B75B0D9c39CB28F1";
+                    transferEth = new window.web3.eth.contract(transferEthABI, transferEthAddress);
     
                 }
     
@@ -57,6 +43,37 @@
                 {
                     return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
                 }
+                /*window.addEventListener('load', async()=> {
+                
+                    //Web3 = require('web3');
+                    if (typeof web3 !== 'undefined') {
+                        web3js = new Web3(web3.currentProvider);
+                    } else {
+                        console.log("Error");
+                    }
+    
+                start()
+    
+                });*/
+                window.addEventListener('load', async () => {
+                    if (window.ethereum) { // Modern dapp browsers... 
+                        window.web3 = new Web3(ethereum);
+                        try {
+                            await ethereum.enable(); // Request account access if needed
+                        }
+                        catch (error) {
+                            console.log('User denied permission to use their Ethereum account.');
+                        }
+                    }
+                    else if (window.web3) { // Legacy dapp browsers...
+                        window.web3 = new Web3(web3.currentProvider);
+                    }
+                    else { // Non-dapp browsers...
+                        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+                    }
+                    start();
+                });
+                
                 
             </script>
     </body>
