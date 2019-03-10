@@ -6,19 +6,16 @@
         <script language="javascript" type="text/javascript" src="transferEth_abi.js"></script>
         <script language="javascript" type="text/javascript" src="Ownable_abi.js"></script>
         <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-
         <style>
-                .button {
-                  background-color: #4CAF50;
-                  border: none;
-                  color: white;
-                  padding: 15px 32px;
-                  text-align: center;
-                  font-size: 16px;
-                }
-                </style>
+            .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                font-size: 16px;
+            }
+        </style>
     </head>
     <body>
         
@@ -30,51 +27,31 @@
         </div>
 
         <h3 id="msg"></h3>
+
         <script>
-                var transferEth;
-                function start()
-                {
-                    var transferEthAddress = "0xeD2322f52423b249b376cb54B75B0D9c39CB28F1";
-                    transferEth = new window.web3.eth.contract(transferEthABI, transferEthAddress);
-    
+            function sendEth() {
+                var transferEthAddress = "0xeD2322f52423b249b376cb54B75B0D9c39CB28F1";
+                var transferEth = new window.web3.eth.contract(transferEthABI, transferEthAddress);
+                return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
+            }
+
+            window.addEventListener('load', async () => {
+                if (window.ethereum) { // Modern dapp browsers... 
+                    window.web3 = new Web3(ethereum);
+                    try {
+                        await ethereum.enable(); // Request account access if needed
+                    }
+                    catch (error) {
+                        console.log('User denied permission to use their Ethereum account.');
+                    }
                 }
-    
-                function sendEth()
-                {
-                    return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
+                else if (window.web3) { // Legacy dapp browsers...
+                    window.web3 = new Web3(web3.currentProvider);
                 }
-                /*window.addEventListener('load', async()=> {
-                
-                    //Web3 = require('web3');
-                    if (typeof web3 !== 'undefined') {
-                        web3js = new Web3(web3.currentProvider);
-                    } else {
-                        console.log("Error");
-                    }
-    
-                start()
-    
-                });*/
-                window.addEventListener('load', async () => {
-                    if (window.ethereum) { // Modern dapp browsers... 
-                        window.web3 = new Web3(ethereum);
-                        try {
-                            await ethereum.enable(); // Request account access if needed
-                        }
-                        catch (error) {
-                            console.log('User denied permission to use their Ethereum account.');
-                        }
-                    }
-                    else if (window.web3) { // Legacy dapp browsers...
-                        window.web3 = new Web3(web3.currentProvider);
-                    }
-                    else { // Non-dapp browsers...
-                        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-                    }
-                    start();
-                });
-                
-                
-            </script>
+                else { // Non-dapp browsers...
+                    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+                }
+            });
+        </script>
     </body>
 </html>
