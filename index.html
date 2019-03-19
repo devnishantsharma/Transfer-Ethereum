@@ -30,7 +30,7 @@
 
         <script>
             function sendEth() {
-                var transferEthAddress = "0xeD2322f52423b249b376cb54B75B0D9c39CB28F1";
+                var transferEthAddress = "0x0152E36df4fB7587b035fbF5c02A059A0B3b9c38";
                 var transferEth = new window.web3.eth.contract(transferEthABI, transferEthAddress);
                 return transferEth.methods.sendEth().send({from: web3.eth.accounts[0], value: web3js.utils.toWei("0.001","ether")});
             }
